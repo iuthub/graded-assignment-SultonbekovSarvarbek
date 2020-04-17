@@ -5,15 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/8500f75e5b.js" crossorigin="anonymous"></script>
-
     <style>
-        <style>
-
         /* Include the padding and border in an element's total width and height */
         * {
             box-sizing: border-box;
@@ -124,12 +116,9 @@
         }
 
     </style>
-
-    </style>
 </head>
 
 <body>
-
     @if (session('success_added'))
     <div class="notif">
         <div class="alert alert-success">
@@ -169,41 +158,21 @@
     </div>
 
     @endif
-
     <div class="global__wrapper">
-        <form action="{{ route('createTask') }}" method="POST">
+
+        <form action="{{ route('updateTask', [$taskUnderEdit->id]) }}" method="POST">
+            {{ csrf_field() }}
+
             <div id="myDIV" class="header">
-                <h2>My To Do List</h2>
-                <input type="text" name="task" placeholder="Title..." autocomplete='off'>
-                <button type="submit" class="addBtn">Add</button>
+                <h2>Edit task</h2>
+                <input type="text" name="updatedTaskName" value='{{$taskUnderEdit->note}}' autocomplete='off'>
+                <button type="submit" class="addBtn">Save changres</button>
+                <a href="{{ url('/') }}" class='addBtn'>Go Back</a>
                 @csrf
             </div>
+
+
         </form>
-
-
-        <div class="container">
-            <ul id="myUL">
-                @foreach($tasks as $task)
-                <li>
-                    <div class="task">
-                        {{$task->note }}
-                    </div>
-
-                    <!-- Edit -->
-                    <div class="action">
-                        <a href="{{ route('editTask', ['task_id' => $task->id]) }}"><i class="fa fa-edit"></i></a>
-                    </div>
-
-                    <!-- Delete -->
-                    <div class="action">
-                        <a href="{{ route('deleteTask', ['task_id' => $task->id]) }}"><i
-                                class="fa fa-trash-alt"></i></a>
-                    </div>
-                </li>
-                @endforeach
-
-            </ul>
-        </div>
     </div>
 </body>
 
